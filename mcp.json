@@ -1,0 +1,57 @@
+{
+  "mcpServers": {
+    "amap-maps": {
+      "command": "npx",
+      "args": ["-y", "@amap/amap-maps-mcp-server"],
+      "env": {
+        "AMAP_MAPS_API_KEY": "${AMAP_MAPS_API_KEY}"
+      }
+    },
+    "amap-search": {
+      "command": "npx",
+      "args": ["-y", "@amap/amap-maps-mcp-server"],
+      "env": {
+        "AMAP_MAPS_API_KEY": "${AMAP_MAPS_API_KEY}"
+      }
+    },
+    "tavily-search": {
+      "command": "npx",
+      "args": ["-y", "@tavily/tavily-mcp"],
+      "env": {
+        "TAVILY_API_KEY": "${SEARCH_API_KEY}"
+      }
+    },
+    "weather": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-weather"],
+      "env": {
+        "OPENWEATHERMAP_API_KEY": "${WEATHER_API_KEY}"
+      }
+    },
+    "railway": {
+      "command": "python",
+      "args": ["-m", "src.mcp.api_fallback"],
+      "env": {
+        "MCP_SERVICE": "railway",
+        "SEARCH_API_KEY": "${SEARCH_API_KEY}"
+      }
+    },
+    "flight": {
+      "command": "python",
+      "args": ["-m", "src.mcp.api_fallback"],
+      "env": {
+        "MCP_SERVICE": "flight",
+        "SEARCH_API_KEY": "${SEARCH_API_KEY}"
+      }
+    },
+    "hotel": {
+      "command": "python",
+      "args": ["-m", "src.mcp.api_fallback"],
+      "env": {
+        "MCP_SERVICE": "hotel",
+        "AMAP_API_KEY": "${AMAP_API_KEY}",
+        "SEARCH_API_KEY": "${SEARCH_API_KEY}"
+      }
+    }
+  }
+}

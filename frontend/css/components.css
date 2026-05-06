@@ -1,0 +1,344 @@
+/* ============================================================
+   Message Components
+   ============================================================ */
+
+.message {
+  display: flex; gap: 12px;
+  max-width: 85%;
+  animation: fadeInUp 0.35s ease-out;
+}
+
+.message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message.assistant {
+  align-self: flex-start;
+}
+
+.message-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+
+.message.user .message-avatar {
+  background: var(--primary-bg); color: var(--primary);
+}
+
+.message.assistant .message-avatar {
+  background: linear-gradient(135deg, var(--primary-bg), rgba(6,182,212,0.1));
+}
+
+.message-bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem; line-height: 1.6;
+  word-break: break-word;
+}
+
+.message.user .message-bubble {
+  background: var(--primary); color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message.assistant .message-bubble {
+  background: var(--surface-0); color: var(--text-primary);
+  border: 1px solid var(--surface-200);
+  border-bottom-left-radius: 4px;
+}
+
+/* ============================================================
+   Plan Step Card
+   ============================================================ */
+
+.plan-card {
+  background: var(--surface-0); border: 1px solid var(--surface-200);
+  border-radius: var(--radius-md); padding: 16px;
+  margin-bottom: 12px; cursor: pointer;
+  transition: all 0.2s;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.plan-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.plan-card-header {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.step-number {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 700;
+  background: var(--surface-100); color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.step-number.completed {
+  background: var(--success); color: white;
+}
+
+.step-number.running {
+  background: var(--primary); color: white;
+  animation: pulse 1.5s infinite;
+}
+
+.step-number.failed {
+  background: var(--error); color: white;
+}
+
+.step-info {
+  flex: 1; min-width: 0;
+}
+
+.step-info .step-description {
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--text-primary);
+}
+
+.step-info .step-agent {
+  display: inline-block;
+  padding: 2px 8px; border-radius: 12px;
+  font-size: 0.72rem; font-weight: 600;
+  margin-top: 4px;
+}
+
+.agent-transport { background: #e3f2fd; color: #1976d2; }
+.agent-maps { background: #fce4ec; color: #c62828; }
+.agent-weather { background: #e8f5e9; color: #2e7d32; }
+.agent-hotel { background: #fff3e0; color: #e65100; }
+.agent-search { background: #f3e5f5; color: #6a1b9a; }
+.agent-file { background: #e0f7fa; color: #00838f; }
+
+.step-status {
+  font-size: 0.75rem; font-weight: 500;
+}
+
+.step-status.running { color: var(--primary); }
+.step-status.completed { color: var(--success); }
+.step-status.pending { color: var(--text-muted); }
+.step-status.failed { color: var(--error); }
+
+/* Plan step detail (in panel) */
+.step-detail {
+  line-height: 1.7;
+}
+
+.step-detail h4 {
+  font-size: 0.95rem; margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.step-detail .detail-section {
+  margin-bottom: 16px;
+}
+
+.step-detail .detail-label {
+  font-size: 0.75rem; font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted); letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.step-detail .detail-value {
+  font-size: 0.88rem; color: var(--text-primary);
+  white-space: pre-wrap; word-break: break-word;
+  max-height: 200px; overflow-y: auto;
+}
+
+.step-detail .detail-value code {
+  background: var(--surface-100); padding: 2px 6px;
+  border-radius: 4px; font-size: 0.8rem;
+}
+
+/* ============================================================
+   ReAct Trace Card
+   ============================================================ */
+
+.react-trace {
+  background: var(--surface-50); border-left: 3px solid var(--primary);
+  border-radius: var(--radius-sm); padding: 12px 16px;
+  margin-bottom: 8px; font-size: 0.83rem;
+}
+
+.react-trace .trace-phase {
+  font-weight: 600; font-size: 0.72rem;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.react-trace .trace-phase.think { color: var(--primary); }
+.react-trace .trace-phase.act { color: var(--accent); }
+.react-trace .trace-phase.observe { color: var(--success); }
+
+/* ============================================================
+   Itinerary Card
+   ============================================================ */
+
+.itinerary-card {
+  background: var(--surface-0); border: 1px solid var(--surface-200);
+  border-radius: var(--radius-md); padding: 20px;
+  margin-bottom: 16px;
+}
+
+.itinerary-section {
+  margin-bottom: 24px;
+}
+
+.itinerary-section h4 {
+  font-size: 1rem; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--surface-100);
+}
+
+.itinerary-section h4 .section-icon {
+  font-size: 1.3rem;
+}
+
+/* Day schedule */
+.day-card {
+  background: var(--surface-50); border-radius: var(--radius-sm);
+  padding: 16px; margin-bottom: 12px;
+}
+
+.day-card .day-header {
+  font-weight: 700; color: var(--primary);
+  margin-bottom: 8px; font-size: 0.95rem;
+}
+
+.day-card .timeline {
+  position: relative; padding-left: 20px;
+}
+
+.day-card .timeline::before {
+  content: '';
+  position: absolute; left: 4px; top: 4px; bottom: 4px;
+  width: 2px; background: var(--surface-200);
+}
+
+.day-card .timeline-item {
+  position: relative; margin-bottom: 10px; font-size: 0.85rem;
+}
+
+.day-card .timeline-item::before {
+  content: '';
+  position: absolute; left: -20px; top: 6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--primary-light); border: 2px solid var(--surface-0);
+}
+
+/* Transport/Hotel cards */
+.info-card {
+  display: flex; gap: 12px; padding: 12px;
+  background: var(--surface-50); border-radius: var(--radius-sm);
+  margin-bottom: 8px; align-items: center;
+}
+
+.info-card .card-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.info-card .card-details { flex: 1; }
+
+.info-card .card-title {
+  font-weight: 600; font-size: 0.9rem;
+}
+
+.info-card .card-subtitle {
+  font-size: 0.8rem; color: var(--text-secondary);
+}
+
+.info-card .card-price {
+  font-weight: 700; color: var(--error); font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.budget-bar {
+  width: 100%; height: 8px; background: var(--surface-200);
+  border-radius: 4px; margin-top: 8px; overflow: hidden;
+}
+
+.budget-bar-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--success), var(--warning), var(--error));
+  transition: width 0.6s ease;
+}
+
+/* ============================================================
+   Thinking indicator
+   ============================================================ */
+
+.thinking-indicator {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  color: var(--text-secondary); font-size: 0.85rem;
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.typing-dots {
+  display: flex; gap: 4px;
+}
+
+.typing-dots span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text-muted);
+  animation: typingBounce 1.2s infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ============================================================
+   Human Question Card
+   ============================================================ */
+
+.human-question {
+  background: linear-gradient(135deg, #fef3c7, #fce4ec);
+  border: 1px solid #f59e0b;
+  border-radius: var(--radius-md); padding: 16px;
+  margin: 12px 0;
+}
+
+.human-question .question-text {
+  font-weight: 600; color: #92400e; margin-bottom: 8px;
+}
+
+.human-question .question-hint {
+  font-size: 0.82rem; color: #b45309;
+}
+
+.human-question .quick-reply-btns {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+}
+
+.quick-reply-btn {
+  padding: 6px 14px;
+  border: 1px solid #f59e0b; border-radius: 16px;
+  background: white; color: #92400e;
+  font-size: 0.82rem; cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-reply-btn:hover {
+  background: #f59e0b; color: white;
+}
+
+/* ============================================================
+   Progress Bar
+   ============================================================ */
+
+.progress-bar {
+  width: 100%; height: 4px; background: var(--surface-200);
+  border-radius: 2px; overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.5s ease;
+}
+

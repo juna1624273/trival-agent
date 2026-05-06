@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能旅游规划助手 | AI Travel Planner</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animation.css">
+</head>
+<body>
+  <!-- ============================================ -->
+  <!-- Animated Background -->
+  <!-- ============================================ -->
+  <div class="bg-gradient"></div>
+  <div class="bg-particles" id="particles"></div>
+
+  <!-- ============================================ -->
+  <!-- Main Layout -->
+  <!-- ============================================ -->
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <svg viewBox="0 0 40 40" class="logo-icon">
+            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+            <text x="20" y="27" text-anchor="middle" font-size="22">🌍</text>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-title">Travel AI</span>
+            <span class="logo-subtitle">智能旅游规划</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-tab="chat">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">对话规划</span>
+        </button>
+        <button class="nav-btn" data-tab="plan">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">执行计划</span>
+        </button>
+        <button class="nav-btn" data-tab="itinerary">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">旅行攻略</span>
+        </button>
+        <button class="nav-btn" data-tab="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">设置</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-indicator" id="statusIndicator">
+          <div class="status-dot"></div>
+          <span class="status-text">就绪</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Chat Tab -->
+      <section class="tab-content active" id="tab-chat">
+        <header class="chat-header">
+          <h2>智能旅游规划助手</h2>
+          <p>基于 LangGraph + MCP 多 Agent 协同，为您量身定制旅行攻略</p>
+        </header>
+
+        <!-- Quick Prompts -->
+        <div class="quick-prompts" id="quickPrompts">
+          <button class="prompt-btn" data-prompt="帮我规划从北京到杭州的3天2晚旅行，预算3000元">
+            🏯 北京→杭州 3日游
+          </button>
+          <button class="prompt-btn" data-prompt="推荐成都5日深度游，包含美食和周边景点">
+            🌶️ 成都美食深度游
+          </button>
+          <button class="prompt-btn" data-prompt="情侣去三亚4天3晚蜜月旅行规划，浪漫为主">
+            🌴 三亚蜜月旅行
+          </button>
+          <button class="prompt-btn" data-prompt="带父母去西安3日游，节奏慢一些，历史文化为主">
+            🏛️ 西安文化之旅
+          </button>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="messages-container" id="messagesContainer">
+          <!-- Messages rendered here -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+          <div class="input-wrapper">
+            <textarea
+              id="messageInput"
+              placeholder="描述你的旅行计划，例如：帮我规划从北京到上海3日游..."
+              rows="1"
+              autofocus
+            ></textarea>
+            <button class="send-btn" id="sendBtn" title="发送">
+              <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="input-hint">
+            按 Enter 发送，Shift+Enter 换行
+          </div>
+        </div>
+      </section>
+
+      <!-- Plan Tab -->
+      <section class="tab-content" id="tab-plan">
+        <header class="tab-header">
+          <h2>执行计划</h2>
+          <p>Agent 任务分解与执行进度</p>
+        </header>
+        <div class="plan-container" id="planContainer">
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <p>暂无执行计划</p>
+            <span>先在对话中输入旅行需求，系统会生成执行计划</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Itinerary Tab -->
+      <section class="tab-content" id="tab-itinerary">
+        <header class="tab-header">
+          <h2>旅行攻略</h2>
+          <p>完整旅行方案</p>
+          <div class="tab-actions">
+            <button class="action-btn" id="exportPdfBtn" disabled>导出 PDF</button>
+            <button class="action-btn" id="exportExcelBtn" disabled>导出 Excel</button>
+          </div>
+        </header>
+        <div class="itinerary-container" id="itineraryContainer">
+          <div class="empty-state">
+            <div class="empty-icon">📝</div>
+            <p>暂无旅行攻略</p>
+            <span>完成所有规划步骤后，系统会生成完整的旅行攻略</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Tab -->
+      <section class="tab-content" id="tab-settings">
+        <header class="tab-header">
+          <h2>设置</h2>
+          <p>配置您的偏好和系统参数</p>
+        </header>
+        <div class="settings-container">
+          <div class="settings-section">
+            <h3>个人偏好</h3>
+            <div class="form-group">
+              <label>常住城市</label>
+              <input type="text" id="settingHomeCity" placeholder="例如：北京">
+            </div>
+            <div class="form-group">
+              <label>预算水平</label>
+              <select id="settingBudget">
+                <option value="">不指定</option>
+                <option value="budget">经济型</option>
+                <option value="comfort">舒适型</option>
+                <option value="luxury">豪华型</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>偏好交通</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" value="flight" class="transport-check"> 飞机</label>
+                <label><input type="checkbox" value="train" class="transport-check"> 高铁/火车</label>
+                <label><input type="checkbox" value="car" class="transport-check"> 自驾</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>酒店偏好</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" value="near_subway" class="hotel-check"> 近地铁</label>
+                <label><input type="checkbox" value="breakfast" class="hotel-check"> 含早餐</label>
+                <label><input type="checkbox" value="quiet" class="hotel-check"> 安静</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3>API 配置</h3>
+            <div class="form-group">
+              <label>LLM 模型</label>
+              <select id="settingModel">
+                <option value="">默认 (DeepSeek V3)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>API 地址</label>
+              <input type="text" id="settingApiUrl" value="/api/v1" placeholder="http://localhost:8000/api/v1">
+            </div>
+            <div class="form-group">
+              <label>系统提示词（可选）</label>
+              <textarea id="settingSystemPrompt" rows="3" placeholder="额外的系统提示..."></textarea>
+            </div>
+          </div>
+
+          <button class="primary-btn" id="saveSettingsBtn">保存设置</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Panel (Detail View) -->
+    <aside class="detail-panel" id="detailPanel">
+      <div class="panel-header">
+        <h3 id="panelTitle">详情</h3>
+        <button class="close-panel" id="closePanel">×</button>
+      </div>
+      <div class="panel-content" id="panelContent">
+        <div class="empty-state small">
+          <p>点击计划步骤查看详情</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- Feedback Modal -->
+  <!-- ============================================ -->
+  <div class="modal-overlay" id="feedbackModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>调整方案</h3>
+        <button class="modal-close" id="closeFeedbackModal">×</button>
+      </div>
+      <div class="modal-body">
+        <p>请描述您对当前方案的意见：</p>
+        <textarea id="feedbackText" rows="3" placeholder="例如：酒店太贵了，换成经济型..."></textarea>
+        <div class="modal-actions">
+          <button class="secondary-btn" id="cancelFeedback">取消</button>
+          <button class="primary-btn" id="submitFeedback">提交反馈</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- Toast Container -->
+  <!-- ============================================ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/constants.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/plan.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
