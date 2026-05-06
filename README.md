@@ -1,6 +1,8 @@
 # Trival Agent — Intelligent Travel Planning System
 
 A multi-agent travel planning system built on **LangGraph** and the **MCP (Model Context Protocol)**, powered by LLMs for automated itinerary generation with human-in-the-loop feedback.
+<img width="1631" height="990" alt="image" src="https://github.com/user-attachments/assets/2a528c1d-aad0-46fd-b146-56f0b2a2c9d7" />
+
 
 ## Features
 
