@@ -92,18 +92,18 @@ class Settings(BaseSettings):
     kimi_api_key: str = ""
 
     # ── MCP Server URLs ──
-    amap_mcp_url: str = "http://localhost:8100/mcp"
+    amap_mcp_url: str = "http://127.0.0.1:8100/mcp"
     amap_api_key: str = ""
-    railway_mcp_url: str = "http://localhost:8101/mcp"
-    flight_mcp_url: str = "http://localhost:8102/mcp"
-    weather_mcp_url: str = "http://localhost:8103/mcp"
+    railway_mcp_url: str = "http://127.0.0.1:8101/mcp"
+    flight_mcp_url: str = "http://127.0.0.1:8102/mcp"
+    weather_mcp_url: str = "http://127.0.0.1:8103/mcp"
     weather_api_key: str = ""
-    hotel_mcp_url: str = "http://localhost:8104/mcp"
-    search_mcp_url: str = "http://localhost:8105/mcp"
+    hotel_mcp_url: str = "http://127.0.0.1:8104/mcp"
+    search_mcp_url: str = "http://127.0.0.1:8105/mcp"
     search_api_key: str = ""
 
     # ── Redis ──
-    redis_url: str = "redis://localhost:6379/0"
+    redis_url: str = "redis://127.0.0.1:6379/0"
 
     # ── ChromaDB ──
     chroma_persist_dir: str = "./data/chroma"
